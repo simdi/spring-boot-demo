@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.models;
 
 public class Customer {
   private int id;
@@ -14,12 +14,25 @@ public class Customer {
   }
 
   /**
+   * @return the email
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
    * @param id the id to set
    */
   public void setId(int id) {
     this.id = id;
   }
 
+  /**
+   * @return the id
+   */
+  public int getId() {
+    return id;
+  }
   /**
    * @param firstName the firstName to set
    */
@@ -28,9 +41,23 @@ public class Customer {
   }
 
   /**
+   * @return the firstName
+   */
+  public String getFirstName() {
+    return firstName;
+  }
+
+  /**
    * @param lastName the lastName to set
    */
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  /**
+   * @return the lastName
+   */
+  public String getLastName() {
+    return lastName;
   }
 }
