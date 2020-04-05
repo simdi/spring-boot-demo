@@ -1,8 +1,12 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Customer {
   private int id;
+  @JsonProperty("first_name")
   private String firstName;
+  @JsonProperty("last_name")
   private String lastName;
   private String email;
 
