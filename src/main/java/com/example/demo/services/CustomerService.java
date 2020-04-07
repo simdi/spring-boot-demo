@@ -3,25 +3,25 @@ package com.example.demo.services;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.dao.CustomerDAO;
 import com.example.demo.models.Customer;
 
 
 @Component
 public class CustomerService {
-  private int customerIdCount = 1;
+  @Autowired
+  private CustomerDAO customerDAO;
   private List<Customer> customerList = new CopyOnWriteArrayList<>();
 
   public Customer addCustomer(Customer customer) {
-    customer.setId(customerIdCount);
-    customerList.add(customer);
-    customerIdCount++;
-    return customer;
+    return customerDAO.save(customer);
   }
 
   public List<Customer> getCustomers() {
-    return customerList;
+    return customerDAO.findAll();
   }
 
   public Customer getCustomer(int id) {
