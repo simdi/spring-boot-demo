@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.exception.ApplicationError;
 import com.example.demo.exception.CustomerNotFoundException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,11 +15,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class ErrorHandler extends ResponseEntityExceptionHandler {
+  @Value("${api.docs.url}")
+  private String details;
+
   @ExceptionHandler(CustomerNotFoundException.class)
   public ResponseEntity<ApplicationError> handleCustomerNotFoundException(CustomerNotFoundException exception, WebRequest webRequest) {
     ApplicationError error = new ApplicationError();
     error.setCode(404);
     error.setMessage(exception.getMessage());
+    error.setDetails(details);
     return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
   }
 }
