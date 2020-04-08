@@ -14,7 +14,6 @@ import com.example.demo.models.Customer;
 public class CustomerService {
   @Autowired
   private CustomerDAO customerDAO;
-  private List<Customer> customerList = new CopyOnWriteArrayList<>();
 
   public Customer addCustomer(Customer customer) {
     return customerDAO.save(customer);
@@ -25,28 +24,15 @@ public class CustomerService {
   }
 
   public Customer getCustomer(int id) {
-    return customerList.stream().filter(c -> c.getId() == id).findFirst().get();
+    return customerDAO.findById(id).get();
   }
 
   public Customer updateCustomer(int id, Customer customer) {
-    customerList
-      .stream()
-      .forEach(c -> {
-        if (c.getId() == id) {
-          c.setFirstName(customer.getFirstName());
-          c.setLastName(customer.getLastName());
-          c.setEmail(customer.getEmail());
-        }
-      });
-
-    return getCustomer(id);
+    customer.setId(id);
+    return customerDAO.save(customer);
   }
 
   public void deleteCustomer(int id) {
-    customerList.stream().forEach(c -> {
-      if (c.getId() == id) {
-        customerList.remove(c);
-      }
-    });
+    customerDAO.deleteById(id);
   }
 }
